@@ -6,4 +6,7 @@
 		$sum = $sum + $digits[$i];
 	}
 	echo "<br/>The sum of the loop is: " . $sum; 
+	echo "<br/>";
+	print_r($_GET);
+	
 ?>

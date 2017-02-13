@@ -15,6 +15,7 @@
 			<div class="row">
 				<p>
 					<a href="create.php" class="btn btn-success">Create</a>
+					<a href="logout.php" class="btn btn-logout">Logout</a>
 				</p>
 				
 				<table class="table table-striped table-bordered">

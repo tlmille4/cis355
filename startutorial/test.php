@@ -1,5 +1,5 @@
 Zippy Dee <br />
-<!-- Codepad.org for sntax help -->
+<!-- Codepad.org for syntax help -->
 <?php
 	#using escape characters
 	echo "<strong>Hello World <br />\\What's \"up\"?</strong>";
@@ -28,6 +28,12 @@ Zippy Dee <br />
 	{
 		$sum += $digits[$i];
 	}
-	echo "<br/>The sum of the loop is: " . $sum;
-		
+	echo "<br/>The sum of the loop is: " . $sum . "<br/><br/>";
+	print_r($e);
+	echo "<br/>";
+	foreach($e as $key => $value)
+	{
+		echo $key . " " . $value . "<br/>";
+	}
+	
 ?>
