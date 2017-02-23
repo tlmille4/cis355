@@ -1,0 +1,4 @@
+		while($course = mysqli_fetch_assoc($result))
+		{
+			echo $course['courses_prefix'] . $course['courses_number'] . "<br/>";
+		}
