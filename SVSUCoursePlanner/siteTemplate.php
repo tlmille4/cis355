@@ -17,6 +17,7 @@ class SiteTemplate
 	  <a href="registerClasses.php">Register for a Class</a>&nbsp;|&nbsp;
 	  <a href="editProfile.php">Edit User Profile Info</a>&nbsp;|&nbsp;
 	  <a href="createStudent.php">Create a New Student</a>&nbsp;|&nbsp;
+	  <a href="allStudents.php">See All Students</a>&nbsp;|&nbsp;
 	  <a href="viewProfile.php">View Profile</a>&nbsp;|&nbsp;
 	  <a href="dropClass.php">Drop a Class</a>&nbsp;|&nbsp;
 	  <a href="dropStudent.php">Drop a Student</a>&nbsp;|&nbsp;
@@ -215,6 +216,38 @@ class SiteTemplate
 		echo '<input type="submit" value="Submit"/>';
 		echo '</form>'; 
 		echo "</div>";
+	}
+	
+	//public function students[] getStudents($db)
+	//{
+	//	$studentID = $_SESSION['student'];
+	//	$sql = "SELECT * FROM students;";
+	//	$result = mysqli_query($db,$sql);
+    //
+	//	//$crs = mysqli_fetch_array($result);
+	//	while($student = mysqli_fetch_assoc($result))
+	//	{
+	//		$students[]=$student;
+	//		return $students[];
+	//	}
+	//}
+	
+	public function displayAllStudents($db)
+	{
+		$sql="SELECT * FROM students";
+		$result=mysqli_query($db,$sql);
+		while($student = mysqli_fetch_assoc($result))
+		{
+			$students[]=$student;
+		}
+		echo '<div align ="center"><table><tr><th>First Name</th><th>Last Name</th><th>Major</th></tr>';
+		foreach ($students as $student)
+		{
+					echo '<tr><td>' . $student['students_first_name'] . '</td>';
+					echo '<td>' . $student['students_last_name'] . '</td>';
+					echo '<td>' . $student['students_major'] . '</td></tr>';			
+		}
+		echo '</table></div>';
 	}
 	
 	public function dropStudent($db)
