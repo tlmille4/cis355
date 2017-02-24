@@ -1,10 +1,11 @@
 <?php 
 	session_start();
 	require 'database.php';
+	require 'siteTemplate.php';
 
 	$id = $_SESSION['student'];;
 	echo $id;
-	echo "HIHIHI";
+
 	if ( !empty($_GET['id'])) {
 		$id = $_REQUEST['id'];
 	}
@@ -19,12 +20,16 @@
 		$timeError = null;
 		$locationError = null;
 		$descriptionError = null;
+		$middleError = null;
+		$majorError = null;
 		
 		// keep track post values
 		$first_name = $_POST['first_name'];
 		$time = $_POST['event_time'];
 		$location = $_POST['event_location'];
 		$description = $_POST['event_description'];
+		$middle_initial = $_POST['students_middle_initial'];
+		$major = $_POST['students_major'];
 		echo $first_name;
 		echo $time;
 		echo $location;
@@ -56,9 +61,9 @@
 		if ($valid) {
 			$pdo = Database::connect();
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql = "UPDATE students SET students_first_name = ?, students_last_name = ?, students_phone =?, students_email =? WHERE students_id = ?";
+			$sql = "UPDATE students SET students_first_name = ?, students_last_name = ?, students_phone =?, students_email =?, students_middle_initial =?, students_major =? WHERE students_id = ?";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($first_name,$time,$location,$description,$id));
+			$q->execute(array($first_name,$time,$location,$description,$middle_initial,$major,$id));
 			Database::disconnect();
 			$_SESSION['message'] = "   [  !  ] Your profile information has been updated!";
 			header("Location: home.php");
@@ -85,16 +90,15 @@
 		
 		Database::disconnect();
 	}
+
+	SiteTemplate::displayHeading();
+	SiteTemplate::displayUserNavigation();
+	
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <link   href="css/bootstrap.min.css" rel="stylesheet">
-    <script src="js/bootstrap.min.js"></script>
-</head>
+
+
 
 <body>
     <div class="container">
@@ -103,7 +107,6 @@
     				<div class="row">
 		    			<h3>Update Your Profile</h3>
 		    		</div>
-					<?php echo $password; ?>
 	    			<form class="form-horizontal" action="editProfile.php?id=<?php echo $id?>" method="post">
 					  <div class="control-group <?php echo !empty($first_nameError)?'error':'';?>">
 					    <label class="control-label">First Name</label>
@@ -120,6 +123,15 @@
 					      	<input name="event_time" type="text" placeholder="Time" value="<?php echo !empty($time)?$time:'';?>">
 					      	<?php if (!empty($timeError)): ?>
 					      		<span class="help-inline"><?php echo $timeError;?></span>
+					      	<?php endif;?>
+					    </div>
+					  </div>
+			          <div class="control-group <?php echo !empty($middleError)?'error':'';?>">
+					    <label class="control-label">Middle Initital</label>
+					    <div class="controls">
+					      	<input name="students_middle_initial" type="text" placeholder="MI" value="<?php echo !empty($middle_initial)?$middle_initial:'';?>">
+					      	<?php if (!empty($middleError)): ?>
+					      		<span class="help-inline"><?php echo $middleError;?></span>
 					      	<?php endif;?>
 					    </div>
 					  </div>
@@ -140,6 +152,18 @@
 					      		<span class="help-inline"><?php echo $descriptionError;?></span>
 					      	<?php endif;?>
 					    </div>
+					  </div>
+					  <div class="control-group <?php echo !empty($descriptionError)?'error':'';?>">
+					    <label class="control-label">Major</label>
+					    <div class="controls">
+					      	<input name="students_major" type="text"  placeholder="Major" value="<?php echo !empty($major)?$major:'';?>">
+					      	<?php if (!empty($majorError)): ?>
+					      		<span class="help-inline"><?php echo $majorError;?></span>
+					      	<?php endif;?>
+					    </div>
+					  </div>
+					  <div class="control-group">
+							<label class="control-label">Password:</label> <?php echo "<a href='resetPassword.php'>Click here</a> to change your password<br/><br/>"; ?>
 					  </div>
 					  <div class="form-actions">
 						  <button type="submit" class="btn btn-success">Update</button>

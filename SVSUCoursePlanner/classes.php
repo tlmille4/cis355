@@ -18,7 +18,9 @@ SiteTemplate::displayUserNavigation();
 echo '<a href="logout.php">Logout</a>';
 echo "<br/>";
 echo "<h1>Course Schedule</h1>";
-echo "<h2>Welcome " . $_SESSION['first_name'] . "!</h2>";
+$firstname=$_SESSION['first_name'];
+$lastname=$_SESSION['last_name'];
+echo "<h2>$firstname $lastname</h2>";
 SiteTemplate::showEnrolledCourses();
 SiteTemplate::displayClosingTags();
 

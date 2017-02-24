@@ -15,18 +15,17 @@ SiteTemplate::displayHeading();
 
 SiteTemplate::displayUserNavigation();
 
- if(isset($_SESSION['message']))
-    {
-         echo "<div id='error_msg'>".$_SESSION['message']."</div>";
-         unset($_SESSION['message']);
-		 
-		 echo "<div id='welcomeMsg'><h1>Welcome, " . $_SESSION['first_name'] . "!</h4></div>";
-		 
-    }
-	echo '<a href="logout.php">Logout</a>';
-	echo "<div id='welcomeMsg'>TESTING THIS DIV</div>";
-		echo $_SESSION['username'];
-		print_r($_SESSION['student']);
+if(isset($_SESSION['message']))
+{
+	 echo "<div id='error_msg'>".$_SESSION['message']."</div>";
+	 unset($_SESSION['message']);
+	 
+	 echo "<div id='welcomeMsg'><h1>Welcome, " . $_SESSION['first_name'] . "!</h4></div>";
+	 
+}
+echo "<div id='welcomeMsg'>Register for a course below:</div>";
+//echo $_SESSION['username'];
+//print_r($_SESSION['student']);
 
 SiteTemplate::courseRegistrationTable($db);		
 SiteTemplate::displayClosingTags();
