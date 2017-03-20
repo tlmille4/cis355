@@ -1,10 +1,18 @@
 <?php 
 	session_start();
+if(!isset($_SESSION['username']))
+{
+	echo "YOU MUST BE LOGGED IN TO SEE THIS PAGE";
+	$_SESSION['message']= "You must be logged in to continue<br/>";
+	header('Location: index.php'); 
+	exit();
+}
+	
+	
 	require 'database.php';
 	require 'siteTemplate.php';
 
-	$id = $_SESSION['student'];;
-	echo $id;
+	$id = $_SESSION['student'];
 
 	if ( !empty($_GET['id'])) {
 		$id = $_REQUEST['id'];
@@ -22,6 +30,7 @@
 		$descriptionError = null;
 		$middleError = null;
 		$majorError = null;
+		
 		
 		// keep track post values
 		$first_name = $_POST['first_name'];
@@ -86,6 +95,7 @@
 		$gpa = $data['students_gpa'];
 		$standing = $data['students_standing'];
 		$password = $data['students_password'];
+		$picture = $data['students_image'];
 				
 		
 		Database::disconnect();
@@ -93,6 +103,7 @@
 
 	SiteTemplate::displayHeading();
 	SiteTemplate::displayUserNavigation();
+	$_SESSION['image'] = "<img height='auto' width='50%' src='data:image/jpeg;base64," . base64_encode($picture) . "'>";
 	
 ?>
 
@@ -107,69 +118,99 @@
     				<div class="row">
 		    			<h3>Update Your Profile</h3>
 		    		</div>
-	    			<form class="form-horizontal" action="editProfile.php?id=<?php echo $id?>" method="post">
-					  <div class="control-group <?php echo !empty($first_nameError)?'error':'';?>">
-					    <label class="control-label">First Name</label>
-					    <div class="controls">
-					      	<input name="first_name" type="text"  placeholder="First Name" value="<?php echo !empty($first_name)?$first_name:'';?>">
-					      	<?php if (!empty($first_nameError)): ?>
-					      		<span class="help-inline"><?php echo $first_nameError;?></span>
-					      	<?php endif; ?>
-					    </div>
-					  </div>
-					  <div class="control-group <?php echo !empty($timeError)?'error':'';?>">
-					    <label class="control-label">Last Name</label>
-					    <div class="controls">
-					      	<input name="event_time" type="text" placeholder="Time" value="<?php echo !empty($time)?$time:'';?>">
-					      	<?php if (!empty($timeError)): ?>
-					      		<span class="help-inline"><?php echo $timeError;?></span>
-					      	<?php endif;?>
-					    </div>
-					  </div>
-			          <div class="control-group <?php echo !empty($middleError)?'error':'';?>">
-					    <label class="control-label">Middle Initital</label>
-					    <div class="controls">
-					      	<input name="students_middle_initial" type="text" placeholder="MI" value="<?php echo !empty($middle_initial)?$middle_initial:'';?>">
-					      	<?php if (!empty($middleError)): ?>
-					      		<span class="help-inline"><?php echo $middleError;?></span>
-					      	<?php endif;?>
-					    </div>
-					  </div>
-					  <div class="control-group <?php echo !empty($locationError)?'error':'';?>">
-					    <label class="control-label">Phone Number</label>
-					    <div class="controls">
-					      	<input name="event_location" type="text"  placeholder="Location" value="<?php echo !empty($location)?$location:'';?>">
-					      	<?php if (!empty($locationError)): ?>
-					      		<span class="help-inline"><?php echo $locationError;?></span>
-					      	<?php endif;?>
-					    </div>
-					  </div>
-					  <div class="control-group <?php echo !empty($descriptionError)?'error':'';?>">
-					    <label class="control-label">Email Address/Login</label>
-					    <div class="controls">
-					      	<input name="event_description" type="text"  placeholder="Description" value="<?php echo !empty($description)?$description:'';?>">
-					      	<?php if (!empty($descriptionError)): ?>
-					      		<span class="help-inline"><?php echo $descriptionError;?></span>
-					      	<?php endif;?>
-					    </div>
-					  </div>
-					  <div class="control-group <?php echo !empty($descriptionError)?'error':'';?>">
-					    <label class="control-label">Major</label>
-					    <div class="controls">
-					      	<input name="students_major" type="text"  placeholder="Major" value="<?php echo !empty($major)?$major:'';?>">
-					      	<?php if (!empty($majorError)): ?>
-					      		<span class="help-inline"><?php echo $majorError;?></span>
-					      	<?php endif;?>
-					    </div>
-					  </div>
-					  <div class="control-group">
-							<label class="control-label">Password:</label> <?php echo "<a href='resetPassword.php'>Click here</a> to change your password<br/><br/>"; ?>
-					  </div>
-					  <div class="form-actions">
-						  <button type="submit" class="btn btn-success">Update</button>
-						  <a class="btn" href="home.php">Back</a>
+					
+					<!--
+					<div class="row">
+						<div class = "col">
+							<?php echo $_SESSION['image'];?> <br/>
+							<form action='fileUpload.php' enctype='multipart/form-data' method='post'>
+								Change Profile Image:
+								<input type='file' name="file1" id="file1"/>
+								<input type='submit'/>
+							</form>
 						</div>
-					</form>
+					</div>
+					-->
+					<div class="row">
+						<div class="col-sm-1" style="text-align: right;">
+						</div>
+						<div class="col-sm-5" >
+							<?php echo $_SESSION['image'];?> <br/><br/>
+							<form action='fileUpload.php' enctype='multipart/form-data' method='post'>
+								Change Profile Image:<br/>
+								<input type='file' name="file1" id="file1"/>
+								<input type='submit'/>
+							</form>
+						</div>
+						<div class="col-sm-4">
+							<form class="form-horizontal" action="editProfile.php?id=<?php echo $id?>" method="post">
+								<div class="control-group <?php echo !empty($first_nameError)?'error':'';?>">
+									<label class="control-label">First Name</label>
+									<div class="controls">
+										<input name="first_name" type="text"  placeholder="First Name" value="<?php echo !empty($first_name)?$first_name:'';?>">
+										<?php if (!empty($first_nameError)): ?>
+											<span class="help-inline"><?php echo $first_nameError;?></span>
+										<?php endif; ?>
+									</div>
+								</div>
+								<div class="control-group <?php echo !empty($timeError)?'error':'';?>">
+									<label class="control-label">Last Name</label>
+									<div class="controls">
+										<input name="event_time" type="text" placeholder="Time" value="<?php echo !empty($time)?$time:'';?>">
+										<?php if (!empty($timeError)): ?>
+											<span class="help-inline"><?php echo $timeError;?></span>
+										<?php endif;?>
+									</div>
+								</div>
+								<div class="control-group <?php echo !empty($middleError)?'error':'';?>">
+									<label class="control-label">Middle Initital</label>
+									<div class="controls">
+										<input name="students_middle_initial" type="text" placeholder="MI" value="<?php echo !empty($middle_initial)?$middle_initial:'';?>">
+										<?php if (!empty($middleError)): ?>
+											<span class="help-inline"><?php echo $middleError;?></span>
+										<?php endif;?>
+									</div>
+								</div>
+								<div class="control-group <?php echo !empty($locationError)?'error':'';?>">
+									<label class="control-label">Phone Number</label>
+									<div class="controls">
+										<input name="event_location" type="text"  placeholder="Location" value="<?php echo !empty($location)?$location:'';?>">
+										<?php if (!empty($locationError)): ?>
+											<span class="help-inline"><?php echo $locationError;?></span>
+										<?php endif;?>
+									</div>
+								</div>
+								<div class="control-group <?php echo !empty($descriptionError)?'error':'';?>">
+									<label class="control-label">Email Address/Login</label>
+									<div class="controls">
+										<input name="event_description" type="text"  placeholder="Description" value="<?php echo !empty($description)?$description:'';?>">
+										<?php if (!empty($descriptionError)): ?>
+											<span class="help-inline"><?php echo $descriptionError;?></span>
+										<?php endif;?>
+									</div>
+								</div>
+								<div class="control-group <?php echo !empty($descriptionError)?'error':'';?>">
+									<label class="control-label">Major</label>
+									<div class="controls">
+										<input name="students_major" type="text"  placeholder="Major" value="<?php echo !empty($major)?$major:'';?>">
+										<?php if (!empty($majorError)): ?>
+											<span class="help-inline"><?php echo $majorError;?></span>
+										<?php endif;?>
+									</div>
+								</div>
+								<div class="control-group">
+										<label class="control-label">Password:</label> <?php echo "<a href='resetPassword.php'>Click here</a> to change your password<br/><br/>"; ?>
+								</div>
+								<div class="form-actions">
+									<button type="submit" class="btn btn-success">Update</button>
+									<a class="btn" href="home.php">Back</a>
+									</div>
+								</form>
+						</div>
+
+					</div>
+	    			
+					
 				</div>
 				
     </div> <!-- /container -->

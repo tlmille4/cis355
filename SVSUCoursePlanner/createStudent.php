@@ -2,6 +2,14 @@
 // from: https://www.youtube.com/watch?v=lGYixKGiY7Y
 
 session_start();
+if(!isset($_SESSION['username']))
+{
+	echo "YOU MUST BE LOGGED IN TO SEE THIS PAGE";
+	$_SESSION['message']= "You must be logged in to continue<br/>";
+	header('Location: index.php'); 
+	exit();
+}
+
 require 'siteTemplate.php';
 SiteTemplate::displayHeading();
 SiteTemplate::displayUserNavigation();
@@ -50,7 +58,7 @@ if(isset($_POST['register_btn']))
 </head>
 <body>
 <div class="header">
-    <h1>Register a New Student</h1>
+    <h2>Register a New Student</h2>
 </div>
 <?php
     if(isset($_SESSION['message']))
@@ -60,6 +68,8 @@ if(isset($_POST['register_btn']))
     }
 ?>
 <div id="welcomeMsg">
+<br/>
+<br/>
 <form method="post" action="createStudent.php">
   <table>
      <tr>

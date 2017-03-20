@@ -17,7 +17,9 @@ $sql="SELECT * FROM students";
 
 SiteTemplate::displayHeading();
 SiteTemplate::displayUserNavigation();
-SiteTemplate::displayAllStudents($db);
+echo '<center><p><b>All Students Currently in System</b></p></center>';
+$key = ALL;
+SiteTemplate::displayAllStudents($db, $key);
 
  if(isset($_SESSION['message']))
     {

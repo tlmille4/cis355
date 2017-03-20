@@ -29,10 +29,12 @@ if (isset($_POST['courses']))
 SiteTemplate::displayHeading();
 SiteTemplate::displayUserNavigation();
 
+echo "<div id='center'>Select a course to drop: <br/>";
 
-echo "<div id='welcomeMsg'>Select a course to drop:</div>";
-
-SiteTemplate::dropStudentCourses($db);		
+SiteTemplate::dropStudentCourses($db);	
+echo "<br/><br/>";
+SiteTemplate::showEnrolledCourses();
+echo "</div>";
 SiteTemplate::displayClosingTags();
 
 

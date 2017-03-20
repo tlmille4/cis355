@@ -1,18 +1,9 @@
 <?php 
 	session_start();
-	if(!isset($_SESSION['username']))
-{
-	echo "YOU MUST BE LOGGED IN TO SEE THIS PAGE";
-	$_SESSION['message']= "You must be logged in to continue<br/>";
-	header('Location: index.php'); 
-	exit();
-}
-	
-	
 	require 'database.php';
 	require 'siteTemplate.php';
 
-	$id = $_SESSION['student'];
+	$id = $_GET['id'];
 	$pdo = Database::connect();
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	$sql = "SELECT * FROM students where students_id = ?";
@@ -31,15 +22,14 @@
 	$gpa = $data['students_gpa'];
 	$standing = $data['students_standing'];
 	$password = $data['students_password'];
-	$picture = $data['students_image'];
-			
+	$picture = $data['students_image'];	
 			
 	$query = "SELECT students_image FROM students WHERE id=$id";
 	$result = mysql_query($query);
 		
 	$content = mysql_result($result, 0, "content");
-					
-	$_SESSION['image'] = "<img height='auto' width='50%' src='data:image/jpeg;base64," . base64_encode($picture) . "'>";
+	$image = "<img height='auto' width='50%' src='data:image/jpeg;base64," . base64_encode($picture) . "'>";			
+	
 	Database::disconnect();
 
 	SiteTemplate::displayHeading();
@@ -57,7 +47,7 @@
 			
 			<div class="row">
 				<div class="col-sm-6" style="text-align: right;">
-					<?php echo $_SESSION['image']; ?>
+					<?php echo $image; ?>
 				</div>
 				<div class="col-sm-4">
 					<div class="control-group">
@@ -88,7 +78,7 @@
 						<label class="control-label">Currently Active?:</label> <?php if($gpa)echo "True"; else echo"False"; ?>
 					</div>
 					<div class="form-actions">
-						<a class="btn" href="home.php">Back</a>
+						<a href="javascript:history.back()">Go Back</a>
 						</div>
 				</div>
 			</div>

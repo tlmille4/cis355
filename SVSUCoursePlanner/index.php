@@ -37,7 +37,7 @@ function login()
 	//echo file_get_contents("welcome.html");
 	include 'siteTemplate.php';
 	SiteTemplate::displayHeading();
-	echo '[Not implemented yet] <a href="adminlogin.php">Instructors/Administrators Login</a>';
+
 	SiteTemplate::displayLoginForm();
 	SiteTemplate::displayClosingTags();
 }

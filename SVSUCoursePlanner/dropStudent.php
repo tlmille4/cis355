@@ -15,6 +15,7 @@ if(!isset($_SESSION['username']))
 if (isset($_POST['students']))
 {
 	$studentID=$_POST['students'];
+
 	$sql = "DELETE FROM students
 			WHERE students_id=$studentID";
 	mysqli_query($db,$sql);

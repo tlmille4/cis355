@@ -9,20 +9,28 @@ body {
 }
 
 .navbar-fixed-top .nav {
-    padding: 10px;
-	padding-bottom: 10px;
+    padding: 15px 0;
 }
 
 .navbar-fixed-top .navbar-brand {
-    padding: 10px 0px;
+    padding: 0 15px;
 }
 
 @media(min-width:768px) {
     body {
-        padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+        padding-top: 100px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
     }
 
     .navbar-fixed-top .navbar-brand {
-        padding: 5px;
+        padding: 15px 0;
     }
+}
+
+table, tr, td, th {
+    border: hidden;  !important;
+    border-collapse: collapse;
+}
+
+#welcomeMsg {
+	padding: 15px;
 }

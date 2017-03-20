@@ -15,12 +15,10 @@ include 'siteTemplate.php';
 SiteTemplate::displayHeading();
 SiteTemplate::displayUserNavigation();
 
-echo '<a href="logout.php">Logout</a>';
-echo "<br/>";
-echo "<h1>Course Schedule</h1>";
+echo "<h1>Course Schedule for";
 $firstname=$_SESSION['first_name'];
 $lastname=$_SESSION['last_name'];
-echo "<h2>$firstname $lastname</h2>";
+echo " $firstname $lastname</h2> <br/><br/>";
 SiteTemplate::showEnrolledCourses();
 SiteTemplate::displayClosingTags();
 

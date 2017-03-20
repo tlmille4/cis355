@@ -3,6 +3,8 @@ session_start();
 if(!isset($_SESSION['username']))
 {
 	echo "YOU MUST BE LOGGED IN TO SEE THIS PAGE";
+	$_SESSION['message']= "You must be logged in to continue<br/>";
+	header('Location: index.php'); 
 	exit();
 }
  
