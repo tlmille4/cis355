@@ -1,5 +1,4 @@
 <?php
-// from: https://www.youtube.com/watch?v=lGYixKGiY7Y
 
 session_start();
 require 'siteTemplate.php';

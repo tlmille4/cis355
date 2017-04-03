@@ -17,7 +17,6 @@ if(isset($_GET['id']))
 {
 	$courseID = $_GET['id'];
 	$db = SiteTemplate::connectDatabase();
-	//$db=mysqli_connect("localhost","tlmille4","460207","tlmille4");
 	
 	$sql = "SELECT courses_prefix, courses_number FROM courses WHERE courses_id=$courseID;";
 	$result=mysqli_query($db,$sql);
@@ -41,8 +40,10 @@ if(isset($_GET['id']))
     //
 	//}
 	
-	
-	echo $_GET['id'];
+	echo '<div class="form-actions">
+		<a class="btn" href="home.php">Back</a>
+	  </div>';
+	  
 	SiteTemplate::closeDatabase();
 }
 

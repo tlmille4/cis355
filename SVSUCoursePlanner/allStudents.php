@@ -32,7 +32,9 @@ SiteTemplate::displayAllStudents($db, $key);
 	echo '<center><a href="logout.php">Logout</a></center>';
 
 
-		
+	echo '<div class="form-actions">
+			<a class="btn" href="home.php">Back</a>
+		  </div>';	
 SiteTemplate::displayClosingTags();
 
 

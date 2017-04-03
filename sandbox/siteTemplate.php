@@ -12,77 +12,77 @@ class SiteTemplate
 		mysql_close();
 	}
 	
-	public function displayHeading()
+	
+	public function loadAdminMenu($adminCurr)
 	{
-		echo '<!DOCTYPE html><html lang=en><head><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<meta charset=utf-8><meta name="viewport" content="width=device-width, user-scalable=no"><meta content="IE=edge"http-equiv=X-UA-Compatible><meta content="CSIS Course Planner"name=description><meta content="Tyler Miller"name=author><title>Home - SVSU CS/CIS Course Scheduling</title><link href=favicon.ico rel=icon type=image/x-icon><link href=favicon.ico rel="shortcut icon"type=image/x-icon><link href="css/bootstrap.css" rel="stylesheet"><link href="css/logo-nav.css" rel="stylesheet"><link href="css/custom.css" rel="stylesheet"><!--[if lt IE 9]><script src=https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js></script><script src=https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js></script><![endif]--></head>
-<body>
-
-
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-
-                </button>
-                <a class="navbar-brand" href="#">
-                    <a href=http://www.svsu.edu class=navbar-brand><img alt="Saginaw Valley State University"src=img/svsuLogo.png></a> 
-                </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href=home.php style=color:#fff>Home</a>
-                    </li>
-					
-					<li><a href="classes.php">Class Schedule</a>				</li>
-					<li><a href="registerClasses.php">Register for a Class</a>  </li>
-
-					<li><a href="viewProfile.php">View Profile</a>              </li>
-					<li><a href="dropClass.php">Drop a Class</a>                </li>
-					<li><a style="color: red;" href="logout.php">Logout</a>     </li>
-					
-					
-					
-					
-					
-					
-					
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-
-
-';
+		if($_SESSION['admin'] == 1)
+		{
+			echo '<li ' . $adminCurr . '>
+						<a href="#">Admin Menu</a>
+						<ul>
+							<li><a href="allStudents.php">View All Students</a></li>
+							<li><a href="createStudent.php">Create a Class</a></li>
+							<li><a href="dropStudent.php">Delete a Student</a></li>
+						</ul>
+					</li>';
+		}
+		
 	}
 	
-	public function extendedNavigation()
+	public function loadHeaderNav($key)
 	{
-		echo '<div class="topnav" id="myTopnav">	
-				<a href="#home">Home</a>
-				<a href="#news">News</a>
-				<a href="#contact">Contact</a>
-				<a href="#about">About</a>
-			</div>
-			';
+		$curr = 'li class="current"';
+		switch($key)
+		{
+			case 1:
+				$indexCurr = $curr;
+				break;
+			case 2:
+				$profileCurr = $curr;
+				break;
+			case 3:
+				$coursesCurr = $curr;
+				break;
+			case 4:
+				$adminCurr = $curr;
+				break;
+			default:
+				$indexCurr = $curr;
+		}
+		
+		echo	'<!-- Header -->
+				<div id="header">
+					<!-- Logo -->
+					<!-- Nav -->
+						<nav id="nav">
+						<img style="padding-top: 10px;" alt="Saginaw Valley State University"src=images/svsuLogo.png>
+							<ul>
+								<li ' . $indexCurr . '><a href="index.php">Home</a></li>
+								<li ' . $profileCurr . '>
+									<a href="#">Profile Settings</a>
+									<ul>
+										<li><a href="viewProfile.php">View Profile</a></li>
+										<li><a href="editProfile.php">Edit Profile</a></li>
+										<li><a href="resetPassword.php">Change Password</a></li>
+									</ul>
+								</li>
+								<li ' . $coursesCurr . '>
+									<a href="#">Courses</a>
+									<ul>
+										<li><a href="classes.php">View My Courses</a></li>
+										<li><a href="registerCourse.php">Register for a Course</a></li>
+										<li><a href="dropClass.php">Drop a Course</a></li>
+									</ul>
+								</li>
+								<li><a href="http://my.svsu.edu">mySVSU</a></li>
+								<li><a href="http://svsu.instructure.com">Canvas</a></li>';
+								SiteTemplate::loadAdminMenu($adminCurr);
+			echo '<li><a style="color:red;" href="logout.php">Logout</a></li>
+							</ul>
+						</nav>
+				</div>';
 	}
 	
-	public function displayClosingTags()
-	{
-		echo '<script src=js/jquery.js></script><script src=js/bootstrap.min.js></script></body></html>';
-	}
 	
 	public function displayUserNavigation()
 	{
@@ -113,7 +113,7 @@ class SiteTemplate
 	 
 	public function displayLoginForm()
 	{
-		echo '<div id="welcomeMsg"><form action=index.php method=post><table><tr><td style="border:hidden;">Username :<td style="border:hidden;"><input class=textInput name=username><tr><td style="border:hidden;">Password :<td style="border:hidden;"><input class=textInput name=password type=password><tr><td style="border:hidden;"><td style="border:hidden;"><input class="In Log"name=login_btn type=submit></table></form></div>'; 
+		echo '<form action=index.php method=post><table><tr><td>Username :</td><td><input type=text name=username></td></tr><tr><td>Password :</td><td><input class=textInput name=password type=password></td></tr><br/></table><input value="Log In" name=login_btn type=submit></form>'; 
 	}
 	
 	public function validateUser()
@@ -206,6 +206,35 @@ class SiteTemplate
 		}
 	}
 	
+	public function showAllCourses()
+	{
+					$db=mysqli_connect("localhost","tlmille4","460207","tlmille4");
+					siteTemplate::styleCourseTable();
+			
+					echo '<div align ="center"><table><tr><th>Course</th><th>Section</th><th>Name</th>
+					<th>Meeting Times</th><th>Location</th><th>Available</th>
+					<th>Term</th><th>Credits</th></tr>';
+				 
+				$sqlCourse="SELECT * FROM courses WHERE courses_available != 0";
+				$courseResult=mysqli_query($db,$sqlCourse);
+				
+				while($course = mysqli_fetch_assoc($courseResult))
+				{
+					$courseID = $course['course_id'];
+					echo '<tr><td><a href="classInfo.php?id=' . $courseID . '">' . $course['courses_prefix'] . $course['courses_number'] . '</a></td>';
+					echo '<td>' . $course['courses_section'] . '</td>';
+					echo '<td>' . $course['courses_name'] . '</td>';
+					echo '<td>' . $course['courses_meeting_times'] . '</td>';
+					echo '<td>' . $course['courses_building'] . $course['courses_room_number'] . '</td>';
+					echo '<td>' . $course['courses_available'] . '</td>';
+					echo '<td>' . $course['courses_term'] . '</td>';
+					echo '<td>' . $course['courses_credits'] . '</td></tr>';
+				}
+			
+			echo '</table></div>';
+			SiteTemplate::closeDatabase();
+	}
+	
 	public function styleCourseTable()
 	{
 		echo '<style>
@@ -243,7 +272,6 @@ class SiteTemplate
 		//	echo "<option value='" . $row['courses_prefix'] . $row['courses_number'] . "'>" . $row['courses_prefix'] . $row['courses_number'] ."</option>";
 		//}
 		//echo "</select>";
-		echo "<div id='welcomeMsg'>";
 		echo '<form action="registerCourse.php" method="post">';
 		echo "<select name='courses' id='courses'>";
 		foreach ($courses as $course)
@@ -261,7 +289,6 @@ class SiteTemplate
 		//echo '<input type="text" name="courseNumber" />';
 		echo '<input type="submit" name="Submit" value="Submit"/>';
 		echo '</form>'; 
-		echo "</div>";
 	}
 	
 	public function registerCourse()
@@ -345,7 +372,7 @@ class SiteTemplate
 					echo '<tr><td>' . $student['students_first_name'] . '</td>';
 					echo '<td>' . $student['students_last_name'] . '</td>';
 					echo '<td>' . $student['students_major'] . '</td>';
-					echo '<td>' . '<a href="viewOtherStudent.php?id=' . $id . '">View Profile</a>' . '</td></tr>';					
+					echo '<td>' . '<a href="viewProfile.php?id=' . $id . '">View Profile</a>' . '</td></tr>';					
 		}
 		echo '</table></div>';
 	}
@@ -377,6 +404,23 @@ class SiteTemplate
 		echo '<input type="submit" value="Submit"/>';
 		echo '</form>'; 
 		echo "</div>";
+	}
+	
+	public function getUserImage()
+	{
+		require 'database.php';
+		
+		$id = $_SESSION['student'];
+		$pdo = Database::connect();
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$sql = "SELECT * FROM students where students_id = ?";
+		$q = $pdo->prepare($sql);
+		$q->execute(array($id));
+		$data = $q->fetch(PDO::FETCH_ASSOC);
+		$picture = $data['students_image'];
+		$image = "<img height='auto' width='50%' src='data:image/jpeg;base64," . base64_encode($picture) . "'>";
+		Database::disconnect();
+		return $image;
 	}
 	
 }
