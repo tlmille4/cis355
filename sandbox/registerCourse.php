@@ -23,6 +23,9 @@ if(isset($_POST['courses']))
 	$db=mysqli_connect("localhost","tlmille4","460207","tlmille4");
 	
 	echo $courseID . $studentID;
+	
+	//$sql = "SELECT * FROM enrolled_courses WHERE students_id=$studentID , courses_id VALUES ('$studentID','$courseID')";
+	
 	$sql = "INSERT INTO enrolled_courses (students_id, courses_id) VALUES ('$studentID','$courseID')";
 	mysqli_query($db,$sql);
 	

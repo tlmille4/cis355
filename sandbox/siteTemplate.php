@@ -21,7 +21,8 @@ class SiteTemplate
 						<a href="#">Admin Menu</a>
 						<ul>
 							<li><a href="allStudents.php">View All Students</a></li>
-							<li><a href="createStudent.php">Create a Class</a></li>
+							<li><a href="createStudent.php">Create a Student</a></li>
+							<li><a href="createCourse.php">Create a Class</a></li>
 							<li><a href="dropStudent.php">Delete a Student</a></li>
 						</ul>
 					</li>';
@@ -143,6 +144,7 @@ class SiteTemplate
 					$_SESSION['student'] = $row['students_id'];
 					$_SESSION['first_name']=$row['students_first_name'];
 					$_SESSION['last_name']=$row['students_last_name'];
+					$_SESSION['major']=$row['students_major'];
 					$picture = $row['students_image'];
 					$_SESSION['image'] = "<img height='auto' width='50%' src='data:image/jpeg;base64," . base64_encode($picture) . "'>";
 					$_SESSION['admin'] = $row['students_isadmin'];
@@ -338,20 +340,7 @@ class SiteTemplate
 		echo "</div>";
 	}
 	
-	//public function students[] getStudents($db)
-	//{
-	//	$studentID = $_SESSION['student'];
-	//	$sql = "SELECT * FROM students;";
-	//	$result = mysqli_query($db,$sql);
-    //
-	//	//$crs = mysqli_fetch_array($result);
-	//	while($student = mysqli_fetch_assoc($result))
-	//	{
-	//		$students[]=$student;
-	//		return $students[];
-	//	}
-	//}
-	
+
 	public function displayAllStudents($db, $key)
 	{
 		if($key == ALL)

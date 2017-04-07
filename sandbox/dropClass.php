@@ -11,25 +11,23 @@ if(!isset($_SESSION['username']))
 	exit();
 }
 
-include 'siteTemplate.php';
-if(isset($_POST['courses']))
+require 'siteTemplate.php';
+if (isset($_POST['courses']))
 {
-	$courseID=$_POST['courses'];
-	$studentID = $_SESSION['student'];
-	
-	echo "Course Num: " . $courseID . "<br/>";
-	echo "StudentNum: " . $studentID . "<br/>";
-	
-	$db=mysqli_connect("localhost","tlmille4","460207","tlmille4");
-	
-	echo $courseID . $studentID;
-	$sql = "INSERT INTO enrolled_courses (students_id, courses_id) VALUES ('$studentID','$courseID')";
+	$db = SiteTemplate::connectDatabase();
+	$removeCourse=$_POST['courses'];
+	$studentID=$_SESSION['student'];
+	$sql = "DELETE FROM enrolled_courses
+			WHERE courses_id=$removeCourse AND students_id=$studentID";
 	mysqli_query($db,$sql);
-	
-	$_SESSION['message']="The selected class has been registered!";
+    $_SESSION['message']="The selected class has been dropped!";
+	SiteTemplate::closeDatabase();
+    //echo $removeCourse . " " . $studentID;
 	header('Location: home.php');  //redirect home page
-	exit();	
+	
+	exit();
 }
+
 else
 {
 	//connect to database
@@ -95,6 +93,7 @@ else
 									$lastname=$_SESSION['last_name'];
 									echo " $firstname $lastname</h2> <br/><br/>";
 									SiteTemplate::showEnrolledCourses();
+									
 									echo "<div align='center'>Select a course to drop: <br/>";
 
 									SiteTemplate::dropStudentCourses($db);	

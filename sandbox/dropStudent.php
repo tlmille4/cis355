@@ -78,15 +78,6 @@ if (isset($_POST['students']))
 				</section>
 
 
-			<!-- CTA -->
-				<section id="cta" class="wrapper style3">
-					<div class="container">
-						<header>
-							<h2>See what classes are available</h2>
-							<a href="#" class="button">View Classes</a>
-						</header>
-					</div>
-				</section>
 
 			<!-- Footer -->
 				<div id="footer">

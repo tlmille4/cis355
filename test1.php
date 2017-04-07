@@ -1,60 +1,15 @@
 <?php 
 session_start(); //required for every PHP file
 //if userid is not set, call login function
-include 'siteTemplate.php';
-if(isset($_SESSION['student']))
-{
-	header("Location: home.php");
-}
-if(isset($_GET['logout']))
-{
-	$_SESSION['message'] = "You have been logged out";
 
-}
-if(!isset($_POST['login_btn']))
-{
-
-	if($_POST['emailMessage'])
-	{
-		$email = $_GET['email'];
-		$name = $_GET['name'];
-		$message = $_GET['message'];
-		$requestEmail = mail('tlmille4@svsu.edu','REQUEST FOR SVSU ACCOUNT', $message);
-		if($requestEmail)
-			$_SESSION['message'] = "Your request for account access has been sent";
-		else
-			$_SESSION['message'] = "Error sending request email. Please try again later";
-		header('Location: index.php');
-		exit();
-	}
-}
-else
-{
 	
-	SiteTemplate::validateUser();
-}
+echo "ASDFASDFASAFSD";
 
 ?>
 
 
 
-<!DOCTYPE HTML>
-<!--
-	Arcana by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>SVSU Course Information</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
-	</head>
-	<body>
+
 		<div id="page-wrapper">
 			
 			<!-- Header -->
@@ -69,6 +24,7 @@ else
 								<li><a href="http://svsu.instructure.com">Canvas</a></li>';
 							</ul>
 						</nav>
+			</div>
 
 			<!-- Banner 
 				<section id="banner">
@@ -212,6 +168,3 @@ else
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
-
-	</body>
-</html>

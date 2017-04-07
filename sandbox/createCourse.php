@@ -21,32 +21,31 @@ if(isset($_POST['register_btn']))
     //$password=mysql_real_escape_string($_POST['password']);
     //$password2=mysql_real_escape_string($_POST['password2']);  
 	
-	$firstname=$_POST['students_first_name'];
-    $email=$_POST['students_email'];
-    $password=$_POST['students_password'];
-    $password2=$_POST['students_password2'];
-	$lastname=$_POST['students_last_name'];
-	$major=$_POST['students_major'];
-	$middleinitial=$_POST['students_middle_initial'];
-	$gpa=$_POST['students_gpa'];
-	$phone=$_POST['students_phone'];
-	$standing=$_POST['students_standing'];
-	$picture=$_POST['students_picture'];
+	$instructorID=$_POST['instructor_id'];
+    $section=$_POST['course_section'];
+    $prefix=$_POST['course_prefix'];
+    $courseNumber=$_POST['course_number'];
+	$courseName=$_POST['course_name'];
+	$meetingTimes=$_POST['meeting_times'];
+	$buildingCode=$_POST['building_code'];
+	$roomNumber=$_POST['room_number'];
+	$occRate=$_POST['occupancy_rate'];
+	$term=$_POST['term'];
+	$credits=$_POST['credits'];
+	 
+	
+	$sql="INSERT INTO courses(instructors_id, courses_section, courses_prefix, courses_number, courses_name, courses_meeting_times, courses_building, courses_room_number,courses_available, courses_term, courses_credits) VALUES('$instructorID','$section','$prefix','$courseNumber','$courseName','$meetingTimes','$buildingCode','$roomNumber','$occRate', '$term' ,'$credits')";
 	
 	
-     if($password==$password2)
-     {      //Create User
-            $password=md5($password); //hash password before storing for security purposes
-            $sql="INSERT INTO students(students_first_name,students_last_name,students_middle_initial,students_email,students_major,students_active, students_gpa,students_phone,students_standing,students_password) VALUES('$firstname','$lastname','$middleinitial','$email','$major',1,$gpa,$phone,'$standing','$password')";
-            mysqli_query($db,$sql);  
-            $_SESSION['message']="User $firstname $lastname has been created!";
-            header("location:home.php");  //redirect home page
-			exit();
-    }
-    else
-    {
-      $_SESSION['message']="The two password do not match";   
-     }
+	if(mysqli_query($db,$sql))
+		$_SESSION['message']="$courseName has been created";
+	else
+		$_SESSION['message']="Error creating $courseName. Please check for proper inputs";
+	
+	
+	header("location:home.php");  //redirect home page
+	exit();
+   
 }
 
 	
@@ -63,7 +62,7 @@ if(isset($_POST['register_btn']))
 -->
 <html>
 	<head>
-		<title>Create a New Student - SVSU Course Information</title>
+		<title>Create a New Course - SVSU Course Information</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -92,62 +91,60 @@ if(isset($_POST['register_btn']))
 					<div class="container">
 					
 						<div class="row 200%">
-							<form method="post" action="createStudent.php">
-<h2>Create a New Student</h2>
-  <table>
-     <tr>
-           <td>First Name : </td>
-           <td><input type="text" name="students_first_name" class="textInput"></td>
-     </tr>
-	 <tr>
-           <td>Middle Initial : </td>
-           <td><input type="text" name="students_middle_initial" class="textInput"></td>
-     </tr>
-	 <tr>
-           <td>Last Name : </td>
-           <td><input type="text" name="students_last_name" class="textInput"></td>
-     </tr>
-     <tr>
-           <td>Email : </td>
-           <td><input type="email" name="students_email" class="textInput"></td>
-     </tr>
-      <tr>
-           <td>Password : </td>
-           <td><input type="password" name="students_password" class="textInput"></td>
-     </tr>
-      <tr>
-           <td>Password again: </td>
-           <td><input type="password" name="students_password2" class="textInput"></td>
-     </tr>
-	 <tr>
-           <td>Current GPA: </td>
-           <td><input type="text" name="students_gpa" class="textInput"></td>
-     </tr>
-	 <tr>
-           <td>Major: </td>
-           <td><input type="text" name="students_major" class="textInput"></td>
-     </tr>
-	       <tr>
-           <td>Phone: </td>
-           <td><input type="text" name="students_phone" class="textInput"></td>
-     </tr>
-	       <tr>
-           <td>Standing: </td>
-           <td><input type="text" name="students_standing" class="textInput"></td>
-     </tr>
-      <tr>
-           <td></td>
-           <td><input type="submit" name="register_btn" class="Register"></td>
-     </tr>
-	 
-	 <form action='fileUpload.php' enctype='multipart/form-data' method='post'>
-		Change Profile Image:<br/>
-		<input type='file' name="file1" id="file1"/>
-		<input type='submit'/>
-	</form>
-  
-</table>
-</form>
+							<form method="post" action="createCourse.php">
+								<h2>Create a New Class</h2>
+								  <table>
+									 <tr>
+										   <td>Instructor ID : </td>
+										   <td><input type="text" name="instructor_id" class="textInput"></td>
+									 </tr>
+									 <tr>
+										   <td>Course Section : </td>
+										   <td><input type="text" name="course_section" class="textInput"></td>
+									 </tr>
+									 <tr>
+										   <td>Course Prefix : </td>
+										   <td><input type="text" name="course_prefix" class="textInput"></td>
+									 </tr>
+									 <tr>
+										   <td>Course Number : </td>
+										   <td><input type="text" name="course_number" class="textInput"></td>
+									 </tr>
+									  <tr>
+										   <td>Course Name : </td>
+										   <td><input type="text" name="course_name" class="textInput"></td>
+									 </tr>
+									  <tr>
+										   <td>Meeting Times (String): </td>
+										   <td><input type="text" name="meeting_times" class="textInput"></td>
+									 </tr>
+									 <tr>
+										   <td>Building Code: </td>
+										   <td><input type="text" name="building_code" class="textInput"></td>
+									 </tr>
+									 <tr>
+										   <td>Room Number: </td>
+										   <td><input type="text" name="room_number" class="textInput"></td>
+									 </tr>
+									 <tr>
+										   <td>Term (ie 17WI): </td>
+										   <td><input type="text" name="term" class="textInput"></td>
+									 </tr>
+									<tr>
+										   <td>Occupancy Rate: </td>
+										   <td><input type="text" name="occupancy_rate" class="textInput"></td>
+									 </tr>
+										   <tr>
+										   <td>Credits: </td>
+										   <td><input type="text" name="credits" class="textInput"></td>
+									 </tr>
+									  <tr>
+										   <td></td>
+										   <td><input type="submit" name="register_btn" class="Register"></td>
+									 </tr>
+								  
+								</table>
+								</form>
 						</div>
 					</div>
 				</section>

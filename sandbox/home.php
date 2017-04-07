@@ -59,8 +59,10 @@ include 'siteTemplate.php';
 							<section class="3u 12u(narrower)">
 								<div class="box highlight">
 									<i class="icon major fa-paper-plane"></i>
-									<h3>This Is Important</h3>
-									<p>Duis neque nisi, dapibus sed mattis et quis, nibh. Sed et dapibus nisl amet mattis, sed a rutrum accumsan sed. Suspendisse eu.</p>
+									<h3>Student Overview</h3>
+									<p><?php 
+											echo "Major: " . $_SESSION['major'] . "<br/>";  
+										?></p>
 								</div>
 							</section>
 							<section class="6u 12u(narrower)">

@@ -44,7 +44,7 @@ include 'siteTemplate.php';
 				<div id="header">
 					<!-- Logo -->
 					<!-- Nav -->
-						<?php SiteTemplate::loadHeaderNav();?>
+						<?php SiteTemplate::loadHeaderNav(3);?>
 
 				</div>
 
