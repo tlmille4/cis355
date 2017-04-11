@@ -6,8 +6,12 @@
 		<script src="assets/js/jquery.dropotron.min.js"></script>
 		<script src="assets/js/skel.min.js"></script>
 		<script src="assets/js/util.js"></script>
+		<script src="site.js"></script>
 		<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 		<script src="assets/js/main.js"></script>
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		
 		<script>
 				<!-- Scripts -->
 			
@@ -16,7 +20,7 @@
 			//	$("#body").load("index1.php");
 			//	});
 			//
-			function displayText() 
+			function loadPage() 
 			{
 				
 				var xhttp = new XMLHttpRequest();
@@ -27,18 +31,12 @@
 						document.getElementById("body").innerHTML = this.responseText;
 					}
 				};
-				xhttp.open("GET", "index1.php", true);
+				xhttp.open("GET", "logout1.php", true);
 				
 				xhttp.send();
 			}
 			
-			
-			
-			function executeJS()
-			{
-			    var arr = document.getElementsById('JSTag');
-			    eval(arr.innerHTML);//run script inside div
-			}
+
 		</script>
 	</head>
 	<body>
@@ -53,10 +51,22 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	</head>
-	<body onload="displayText();">
-
+	<body onload="loadPage();">
+		<div id="header">
+			<!-- Logo -->
+			<!-- Nav -->
+			<nav id="nav">
+			<img style="padding-top: 10px;" alt="Saginaw Valley State University"src=images/svsuLogo.png>
+				<ul>
+					<li class="current"><a href="index1.html">Home</a></li>
+					<li><a href="http://my.svsu.edu">mySVSU</a></li>
+					<li><a href="http://svsu.instructure.com">Canvas</a></li>
+				</ul>
+			</nav>
+		</div>	
 		<div id="body"></div>
-		<script>executeJS();</script>
+		<script>executeJS();
+		</script>
 
 	</body>
 </html>

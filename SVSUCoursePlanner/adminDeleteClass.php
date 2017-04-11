@@ -1,37 +1,33 @@
 <?php 
-session_start(); //required for every PHP file
-//if userid is not set, call login function
-
-if(!isset($_SESSION['username']))
-{
-	echo "YOU MUST BE LOGGED IN TO SEE THIS PAGE";
-	$_SESSION['message']= "You must be logged in to continue<br/>";
-	header('Location: index.php'); 
-	exit();
+	session_start(); //required for every PHP file
+	//if userid is not set, call login function
 	
-}
-
-//connect to database
-
-include 'siteTemplate.php';
-
-
-if (isset($_POST['courses']))
-{
-	SiteTemplate::connectDatabase();
-	$db=mysqli_connect("localhost","tlmille4","460207","tlmille4");
-	$courseID=$_POST['courses'];
-	$sql = "DELETE FROM courses
-			WHERE courses_id=$courseID";
-	mysqli_query($db,$sql);
-    $_SESSION['message']="The selected course has been deleted!";
-	SiteTemplate::closeDatabase();
-    header('Location: home.php');  //redirect home page
-	exit();
-}
-
+	if(!isset($_SESSION['username']))
+	{
+		echo "YOU MUST BE LOGGED IN TO SEE THIS PAGE";
+		$_SESSION['message']= "You must be logged in to continue<br/>";
+		header('Location: index.php'); 
+		exit();
+		
+	}
 	
-
+	//connect to database
+	include 'siteTemplate.php';
+	
+	//If course post variable is set, delete course
+	if (isset($_POST['courses']))
+	{
+		SiteTemplate::connectDatabase();
+		$db=mysqli_connect("localhost","tlmille4","460207","tlmille4");
+		$courseID=$_POST['courses'];
+		$sql = "DELETE FROM courses
+				WHERE courses_id=$courseID";
+		mysqli_query($db,$sql);
+		$_SESSION['message']="The selected course has been deleted!";
+		SiteTemplate::closeDatabase();
+		header('Location: home.php');  //redirect home page
+		exit();
+	}
 ?>
 
 
@@ -49,6 +45,8 @@ if (isset($_POST['courses']))
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	</head>

@@ -8,8 +8,11 @@ if(isset($_SESSION['student']))
 }
 if(isset($_GET['logout']))
 {
-	$_SESSION['message'] = "You have been logged out";
-
+	$logout = $_GET['logout'];
+	if($logout == 1)
+		$_SESSION['message'] = "You have been logged out";
+	else
+		$_SESSION['message'] = "";
 }
 if(!isset($_POST['login_btn']))
 {
@@ -58,17 +61,7 @@ else
 		<div id="page-wrapper">
 			
 			<!-- Header -->
-			<div id="header">
-					<!-- Logo -->
-					<!-- Nav -->
-						<nav id="nav">
-						<img style="padding-top: 10px;" alt="Saginaw Valley State University"src=images/svsuLogo.png>
-							<ul>
-								<li class="current"><a href="index.php">Home</a></li>
-								<li><a href="http://my.svsu.edu">mySVSU</a></li>
-								<li><a href="http://svsu.instructure.com">Canvas</a></li>';
-							</ul>
-						</nav>
+			
 
 			<!-- Banner 
 				<section id="banner">

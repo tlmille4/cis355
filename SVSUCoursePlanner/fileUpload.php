@@ -1,18 +1,10 @@
 <?php
-	//print_r($_FILES);
-	
-	//require('startutorial/database.php');
-
-	
 	session_start();
 	require 'database.php';
 	require 'siteTemplate.php';
 
-
-	SiteTemplate::displayHeading();
-	SiteTemplate::displayUserNavigation();
 	
-	$id = $_SESSION['student'];;
+	$id = $_SESSION['student'];
 	//ensuring PHP allows uploads
 	ini_set('file-uploads', true);
 	
@@ -60,10 +52,17 @@
 			
 			$_SESSION['image'] = "<img height='auto' width='50%' src='data:image/jpeg;base64," . base64_encode($content) . "'>";
 			echo "Upload successful";
-			echo '<br/><a href="home.php">Upload More Files</a>';
 		}
 		else
+		{
 			echo "Upload failed. " . mysql_error();		
+			$_SESSION['message'] = "Upload failed";
+			header('Location: home.php');
+			exit();
+		}
+		$_SESSION['message'] = "Profile Picture changed!";
+		header('Location: home.php');
+		exit();
 	}
 
 ?>

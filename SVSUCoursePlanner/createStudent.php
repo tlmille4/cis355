@@ -1,7 +1,7 @@
-<?php
-// from: https://www.youtube.com/watch?v=lGYixKGiY7Y
+<?php 
+session_start(); //required for every PHP file
+//if userid is not set, call login function
 
-session_start();
 if(!isset($_SESSION['username']))
 {
 	echo "YOU MUST BE LOGGED IN TO SEE THIS PAGE";
@@ -10,17 +10,20 @@ if(!isset($_SESSION['username']))
 	exit();
 }
 
-require 'siteTemplate.php';
-SiteTemplate::displayHeading();
-SiteTemplate::displayUserNavigation();
 //connect to database
 $db=mysqli_connect("localhost","tlmille4","460207","tlmille4");
+include 'siteTemplate.php';
+
 if(isset($_POST['register_btn']))
 {
     //$username=mysql_real_escape_string($_POST['username']);
     //$email=mysql_real_escape_string($_POST['email']);
     //$password=mysql_real_escape_string($_POST['password']);
     //$password2=mysql_real_escape_string($_POST['password2']);  
+	
+	//$sql = "SELECT students_image FROM students WHERE students_id =7";
+	//$result = mysqli_query($db,$sql); 
+	//$newImage = $result;
 	
 	$firstname=$_POST['students_first_name'];
     $email=$_POST['students_email'];
@@ -32,14 +35,20 @@ if(isset($_POST['register_btn']))
 	$gpa=$_POST['students_gpa'];
 	$phone=$_POST['students_phone'];
 	$standing=$_POST['students_standing'];
+	$admin=$_POST['isadmin'];
 	
 	
      if($password==$password2)
      {      //Create User
             $password=md5($password); //hash password before storing for security purposes
-            $sql="INSERT INTO students(students_first_name,students_last_name,students_middle_initial,students_email,students_major,students_active, students_gpa,students_phone,students_standing,students_password) VALUES('$firstname','$lastname','$middleinitial','$email','$major',1,$gpa,$phone,'$standing','$password')";
-            mysqli_query($db,$sql);  
-            $_SESSION['message']="User $firstname $lastname has been created!";
+            $sql="INSERT INTO students(students_first_name,students_last_name,students_middle_initial,students_email,students_major,students_active, students_gpa,students_phone,students_standing,students_password,students_isadmin) VALUES ('$firstname','$lastname','$middleinitial','$email','$major',1,'$gpa','$phone','$standing','$password','$admin')";
+            if(mysqli_query($db,$sql))
+				$_SESSION['message']="User $firstname $lastname has been created!";
+			else
+				$_SESSION['message']="Error creating $firstname $lastname.";
+			
+			
+            
             header("location:home.php");  //redirect home page
 			exit();
     }
@@ -49,28 +58,53 @@ if(isset($_POST['register_btn']))
      }
 }
 
+	
+
 ?>
-<!DOCTYPE html>
+
+
+
+<!DOCTYPE HTML>
+<!--
+	Arcana by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
-<head>
-  <title>Register Student</title>
-  <link rel="stylesheet" type="text/css" href="style.css"/>
-</head>
-<body>
-<div class="header">
-    <h2>Register a New Student</h2>
-</div>
-<?php
-    if(isset($_SESSION['message']))
-    {
-         echo "<div id='error_msg'>".$_SESSION['message']."</div>";
-         unset($_SESSION['message']);
-    }
-?>
-<div id="welcomeMsg">
-<br/>
-<br/>
-<form method="post" action="createStudent.php">
+	<head>
+		<title>Create a New User - SVSU Course Information</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+	</head>
+	<body>
+		<div aligh="center" id="page-wrapper">
+			
+			<!-- Header -->
+					<!-- Logo -->
+					<!-- Nav -->
+				<?php SiteTemplate::loadHeaderNav(4);?>
+
+			<!-- Banner 
+				<section id="banner">
+					<header>
+						<h2>Arcana: <em>A responsive site template freebie by <a href="http://html5up.net">HTML5 UP</a></em></h2>
+						<a href="#" class="button">Learn More</a>
+					</header>
+				</section>-->
+
+			<!-- Highlights -->
+				<section class="wrapper style1">
+					<div class="container">
+					
+						<div class="row 200%">
+							<form method="post" action="createStudent.php">
+<h2>Create a New User</h2>
   <table>
      <tr>
            <td>First Name : </td>
@@ -112,14 +146,61 @@ if(isset($_POST['register_btn']))
            <td>Standing: </td>
            <td><input type="text" name="students_standing" class="textInput"></td>
      </tr>
+	 <tr>
+		<td>User Type:</td>
+		<td><select name="isadmin">
+				<option value="0">Student</option>
+				<option value="1">Admin</option>
+			</select></td>
+	 </tr>
       <tr>
            <td></td>
            <td><input type="submit" name="register_btn" class="Register"></td>
      </tr>
+
   
 </table>
 </form>
-</div>
-<?php SiteTemplate::displayClosingTags();?>
-</body>
+						</div>
+					</div>
+				</section>
+
+
+			<!-- Footer -->
+				<div id="footer">
+					<div class="container">
+						<div class="row">
+
+						</div>
+					</div>
+
+					<!-- Icons -->
+						<ul class="icons">
+							<li><a href="https://twitter.com/svsu?lang=en" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="https://www.facebook.com/svsu.edu/" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="https://github.com/tlmille4/cis355" class="icon fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="https://www.linkedin.com/edu/saginaw-valley-state-university-18625" class="icon fa-linkedin"><span class="label">LinkedIn</span></a></li>
+							<li><a href="https://www.instagram.com/svsucardinals/" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						</ul>
+
+					<!-- Copyright -->
+						<div class="copyright">
+							<ul class="menu">
+								<li>&copy; 2017 Saginaw Valley State University. All rights reserved</li><li>Design: <a href="http://html5up.net">HTML5 UP</a> & <a href="http://www.facebook.com/tlmille4">Tyler Miller</a></li>
+							</ul>
+						</div>
+
+				</div>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
 </html>

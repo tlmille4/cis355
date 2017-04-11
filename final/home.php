@@ -32,11 +32,8 @@
 		$standing = $row['students_standing'];
 	}
 
-?>
 
-
-
-<!DOCTYPE HTML>
+echo '<!DOCTYPE HTML>
 <!--
 	Arcana by HTML5 UP
 	html5up.net | @ajlkn
@@ -80,35 +77,35 @@
 										<table>
 											<tr>
 												<td><b>First Name:</b></td> 
-												<td><?php echo $first_name; ?></td>
+												<td>' . $first_name . '</td>
 											</tr>
 											<tr>
 												<td><b>Last Name:</b></td> 
-												<td><?php echo $last_name; ?></td>
+												<td>' . $last_name . '</td>
 											</tr>	
 											<tr>
 												<td><b>Mid Init:</b></td> 
-												<td><?php echo $middle_initial; ?></td>
+												<td>' . $middle_initial . '</td>
 											</tr>
 											<tr>
 												<td><b>Major:</b></td> 
-												<td><?php echo $major; ?></td>
+												<td>' . $major . '</td>
 											</tr>	
 	
 											<tr>
 												<td><b>Standing:</b></td> 
-												<td>  <?php echo $standing; ?></td>
+												<td>' . $standing . '</td>
 											</tr>	
 											<tr>
 												<td><b>GPA: </b></td> 
-												<td> <?php echo $gpa; ?></td>
+												<td>' . $gpa . '</td>
 											</tr>
 										</table>
 								</div>
 							</section>
 							<section class="6u 12u(narrower)">
-								<div class="box highlight">
-									<?php 
+								<div class="box highlight">';
+									
 										if(isset($_SESSION['message']))
 										{
 											echo "<center><div style='color: red;'>".$_SESSION['message']."</div></center><br/>";
@@ -118,8 +115,8 @@
 										echo "<h1>". SiteTemplate::getGreeting() . $_SESSION['first_name'] . '!</h1>';
 								
 
-						?>
-								</div>
+					
+							echo	'</div>
 							</section>
 							<section class="3u 12u(narrower)">
 								<div class="box highlight">
@@ -129,21 +126,25 @@
 	
 											<tr>
 												<td><b>Email/Login:</b></td> 
-												<td> <?php echo $email; ?></td>
+												<td>' . $email . '</td>
 											</tr>
 											<tr>
 												<td><b>Password:</b></td> 
-												<td> <?php echo "<a href='resetPassword.php'>Click here</a> to change"; ?></td>
+												<td> <a href="resetPassword.php">Click here</a> to change </td>
 											</tr>
 											<tr>
 												<td><b>Admin?:</b></td> 
-												<td> <?php if($admin)echo "True"; else echo"False"; ?></td>
+												<td>'; if($admin)
+														    echo "True"; 
+													   else 
+														   echo"False"; 
+											echo '</td>
 											</tr>												
 	
 
 											<tr>
 												<td><b>Active?:</b></td> 
-												<td> <?php if($isActive)echo "True"; else echo"False"; ?></td>
+												<td>'; if($isActive)echo "True"; else echo"False"; echo '</td>
 											</tr>	
 
 										</table>
@@ -192,4 +193,6 @@
 			<script src="assets/js/main.js"></script>
 
 	</body>
-</html>
+</html>';
+
+?>
