@@ -1,3 +1,25 @@
+SVSU Course Planner
+by Tyler Miller
+for CIS355
+
+This is designed to allow an admin user to create an account, users register and deregister for courses, etc.
+
+Session control is used and login starts on the index.php page.
+
+You can use:
+
+gpcorser
+remember
+
+for administrator privileges
+
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+
+HTML TEMPLATE:
+
 Arcana by HTML5 UP
 html5up.net | @ajlkn
 Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
