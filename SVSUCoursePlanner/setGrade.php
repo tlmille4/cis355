@@ -12,21 +12,7 @@
 	
 	
 	include 'siteTemplate.php';
-	
-	
-	
-	
-	//if(isset($_POST['courses']))
-	//{
-    //
-	//
-	//	unset($_SESSION['courseID']);
-	//	unset($_SESSION['gradeStudent']);
-	//	//Redirect to homepage
-	//	header("location:home.php");  //redirect home page
-	//	exit();
-	//
-	//}
+
 
 ?>
 

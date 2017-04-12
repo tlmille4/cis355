@@ -646,12 +646,18 @@ class SiteTemplate
 			$students[]=$student;
 		}
 		siteTemplate::styleCourseTable();
-		echo '<div align ="center"><table><tr><th>First Name</th><th>Last Name</th><th>Major</th><th>Profile</th></tr>';
+		echo '<div align ="center"><table><tr><th>First Name</th><th>Last Name</th><th>Role</th><th>Major</th><th>Profile</th></tr>';
 		foreach ($students as $student)
 		{
+			if($student['students_isadmin'] == 1)
+				$type = "Professor/Admin";
+			else
+				$type = "Student";
+			
 					$id = $student['students_id'];
 					echo '<tr><td>' . $student['students_first_name'] . '</td>';
 					echo '<td>' . $student['students_last_name'] . '</td>';
+					echo '<td>' . $type . '</td>';
 					echo '<td>' . $student['students_major'] . '</td>';
 					echo '<td>' . '<a href="viewProfile.php?id=' . $id . '">View Profile</a>' . '</td></tr>';					
 		}
@@ -695,7 +701,9 @@ class SiteTemplate
 	{ 
 		$db = SiteTemplate::connectDatabase();
 	   
-		$sql = "SELECT * FROM students;";
+		$sql = "SELECT * FROM students WHERE students_isadmin = 0";
+		
+		
 		$result = mysqli_query($db,$sql);
 
 		//$crs = mysqli_fetch_array($result);
