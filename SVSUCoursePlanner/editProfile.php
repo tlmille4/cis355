@@ -2,7 +2,7 @@
 session_start(); //required for every PHP file
 //if userid is not set, call login function
 
-
+//Redirect back to login if not logged in
 if(!isset($_SESSION['username']))
 {
 	echo "YOU MUST BE LOGGED IN TO SEE THIS PAGE";
@@ -20,9 +20,7 @@ if(!isset($_SESSION['username']))
 		$id = $_REQUEST['id'];
 	}
 	
-	if ( null==$id ) {
-		//header("Location: home.php");
-	}
+
 	
 	if ( !empty($_POST)) {
 		// keep track validation errors
@@ -76,7 +74,7 @@ if(!isset($_SESSION['username']))
 			$q = $pdo->prepare($sql);
 			$q->execute(array($first_name,$time,$location,$description,$middle_initial,$major,$id));
 			Database::disconnect();
-			$_SESSION['message'] = "   [  !  ] Your profile information has been updated!";
+			$_SESSION['message'] = "Your profile information has been updated!";
 			header("Location: home.php");
 		}
 	} else {

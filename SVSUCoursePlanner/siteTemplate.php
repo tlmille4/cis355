@@ -1,18 +1,19 @@
 <?php
 class SiteTemplate 
 {	
-
+	//Open a connection to the CSIS database
 	public function connectDatabase()
 	{
 		return mysqli_connect("localhost","tlmille4","460207","tlmille4");
 	}
 	
+	//Close the connection to the CSIS database
 	public function closeDatabase()
 	{
 		mysql_close();
 	}
 	
-	
+	//Load student navigation menu
 	public function loadStudentMenu($adminCurr)
 	{
 		if($_SESSION['admin'] == 0)
@@ -29,6 +30,7 @@ class SiteTemplate
 		
 	}
 	
+	//Load administrator navigation menu
 	public function loadAdminMenu($adminCurr)
 	{
 		if($_SESSION['admin'] == 1)
@@ -36,14 +38,25 @@ class SiteTemplate
 			echo '<li ' . $adminCurr . '>
 						<a <a style="color:yellow;"href="#">Admin Menu</a>
 						<ul>
-							<li><a href="allStudents.php">View All Users</a></li>
-							<li><a href="allCourses.php">View All Courses</a></li>
-							<li><a href="createStudent.php">Create a User</a></li>
-							<li><a href="dropStudent.php">Delete a User</a></li>
-							<li><a href="createCourse.php">Create a Class</a></li>
-							<li><a href="updateCourse.php">Update a Class</a></li>
-							<li><a href="adminDeleteClass.php">Delete a Course Section</a></li>
-							<li><a href="adminCourses.php">View My Courses</a></li>
+							<li>
+								<a href="#">Courses</a>
+								<ul>
+									<li><a href="adminCourses.php">View My Courses</a></li>
+									<li><a href="createCourse.php">Create a Class</a></li>
+									<li><a href="updateCourse.php">Update a Class</a></li>
+									<li><a href="adminDeleteClass.php">Delete a Class</a></li>
+									<li><a href="allCourses.php">View All Courses</a></li>
+								</ul>
+							</li>
+							
+							<li>
+							<a href="#">Users/Students</a>
+								<ul>
+									<li><a href="allStudents.php">View All Users</a></li>
+									<li><a href="createStudent.php">Create a User</a></li>
+									<li><a href="dropStudent.php">Delete a User</a></li>
+								</ul>
+							</li>
 							<li><a href="setGrade.php">Set Grades</a></li>
 						</ul>
 					</li>';
@@ -51,6 +64,7 @@ class SiteTemplate
 		
 	}
 	
+	//Load header navigation, use number guide to correctly show which is the correct page being displayed
 	public function loadHeaderNav($key)
 	{
 		$curr = 'li class="current"';
@@ -98,7 +112,7 @@ class SiteTemplate
 				</div>';
 	}
 	
-	
+	//Get GPA and set it via letter grade
 	public function getGPA($currGPA, $inGrade)
 	{
 		switch ($inGrade) 
@@ -143,40 +157,14 @@ class SiteTemplate
 		return (($currGPA + $gpa) / 2);
 	}
 	
-	public function displayUserNavigation()
-	{
-		if($_SESSION['admin'] == 1)
-		{
-					echo '<p align="center"><b>Administrator</b> Navigation: <br/><span><a href="classes.php">Class Schedule</a></span> &nbsp;|&nbsp;
-	  <a href="registerClasses.php">Register for a Class</a>&nbsp;|&nbsp;
-	  <a href="editProfile.php">Edit User Profile Info</a>&nbsp;|&nbsp;
-	  <a href="createStudent.php">Create a New Student</a>&nbsp;|&nbsp;
-	  <a href="allStudents.php">See All Students</a>&nbsp;|&nbsp;
-	  <a href="viewProfile.php">View Profile</a>&nbsp;|&nbsp;
-	  <a href="dropClass.php">Drop a Class</a>&nbsp;|&nbsp;
-	  <a href="dropStudent.php">Drop a Student</a>&nbsp;|&nbsp;
-	  <a style="color: red;" href="logout.php">Logout</a></p><hr>';
-		}
-		else
-		{
-				echo '<p align="center">User Navigation: <span><a href="classes.php">Class Schedule</a></span> &nbsp;|&nbsp;
-	  <a href="registerClasses.php">Register for a Class</a>&nbsp;|&nbsp;
-	  <a href="editProfile.php">Edit User Profile Info</a>&nbsp;|&nbsp;
-	  <a href="allStudents.php">See All Students</a>&nbsp;|&nbsp;
-	  <a href="viewProfile.php">View Profile</a>&nbsp;|&nbsp;
-	  <a href="dropClass.php">Drop a Class</a>&nbsp;|&nbsp;
-	  <a style="color: red;" href="logout.php">Logout</a></p><hr>';	
-		}
-
-	}
-	 
+	//Code used to display HTML login form 
 	public function displayLoginForm()
 	{
 		echo '<form action=index.php method=post><table><tr><td>Username :</td><td><input type=text name=username></td></tr><tr><td>Password :</td><td><input class=textInput name=password type=password></td></tr><br/></table><input value="Log In" name=login_btn type=submit></form>'; 
 	}
 	
 	
-	
+	//Used when user logs in -- validates username and password with that stored in DB, then retrieves relevent info and logs the student into their home page
 	public function validateUser()
 	{
 		session_start();
@@ -220,7 +208,7 @@ class SiteTemplate
 		}
 	}
 	
-	
+	//Function used to display the welcome greeting based on time of day
 	public function getGreeting()
 	{
 		 $time = date("H");
@@ -240,12 +228,11 @@ class SiteTemplate
 		} else
 		/* Finally, show good night if the time is greater than or equal to 1900 hours */
 		if ($time >= "19") {
-			return "Good Night, ";
-			
-    }
-	echo "poo";
+			return "Good Night, ";	
+		}
 	}
 	
+	//Connect to DB and show all enrolled coruses for a user and display via HTML table
 	public function showEnrolledCourses()
 	{
 		session_start();
@@ -264,7 +251,7 @@ class SiteTemplate
 			
 			siteTemplate::styleCourseTable();
 			
-							echo '<div align ="center"><table><tr><th>Grade</th><th>Course</th><th>Section</th><th>Name</th><th>Instructor</th>
+			echo '<div align ="center"><table><tr><th>Grade</th><th>Course</th><th>Section</th><th>Name</th><th>Instructor</th>
 					<th>Meeting Times</th><th>Location</th><th>Available</th>
 					<th>Term</th><th>Credits</th></tr>';
 			
@@ -298,6 +285,7 @@ class SiteTemplate
 		}
 	}
 	
+	//Function used to get all instructors, used when creating/updating courses
 	public function getInstructor($db, $id)
 	{
 		$sql = "SELECT * FROM students WHERE students_id='$id'";
@@ -344,7 +332,7 @@ class SiteTemplate
 		
 	}
 	
-		//Connect to DB to get all instructor names into dropdown menu
+	//Connect to DB to get all instructor names into dropdown menu
 	public function instructorDropdownUpdate($selected)
 	{
 		$db = SiteTemplate::connectDatabase();
@@ -359,9 +347,7 @@ class SiteTemplate
 			$admins[]=$admin;
 		}
 		
-		
-		//echo '<form action="updateCourse.php" method="post">';
-		//echo "<select name='admin' id='admin'>";
+
 		foreach ($admins as $admin)
 		{
 			if($selected == $admin['students_id'])
@@ -371,15 +357,12 @@ class SiteTemplate
 			print "<option value='" . $admin['students_id'] ."'" . $showSelect . ">" . $admin['students_last_name'] . ', ' . $admin['students_first_name'] . "</option>";
 			
 		}
-		//echo "</select>";
-		
-		//echo '</form>'; 
-		
+
 		SiteTemplate::closeDatabase();
 		
 	}
 	
-	
+	//Function used to update a course in the database
 	public function updateCourse($courseID, $instructorID,$section,$prefix,$courseNumber,$courseName,$meetingTimes,$buildingCode,$roomNumber,$occRate,$term,$credits)
 	{
 		$db = SiteTemplate::connectDatabase();
@@ -403,6 +386,7 @@ class SiteTemplate
 		SiteTemplate::closeDatabase();
 	}
 	
+	//Function used to insert course into database
 	public function insertCourse($instructorID,$section,$prefix,$courseNumber,$courseName,$meetingTimes,$buildingCode,$roomNumber,$occRate,$term,$credits)
 	{
 		$db = SiteTemplate::connectDatabase();
@@ -426,6 +410,7 @@ class SiteTemplate
 		SiteTemplate::closeDatabase();
 	}
 	
+	//Function used to show all available courses or all courses if admin, and displays them via HTML table
 	public function showAllCourses($admin)
 	{
 					$db=mysqli_connect("localhost","tlmille4","460207","tlmille4");
@@ -468,6 +453,7 @@ class SiteTemplate
 			SiteTemplate::closeDatabase();
 	}
 	
+	//Function that holds the CSS style tag info for the HTML tables
 	public function styleCourseTable()
 	{
 		echo '<style>
@@ -486,6 +472,7 @@ class SiteTemplate
 						</style>';
 	}
 	
+	//Show course registration dropdown menu via DB courses
 	public function courseRegistrationTable()
 	{
 		$db = SiteTemplate::connectDatabase();
@@ -511,6 +498,7 @@ class SiteTemplate
 		echo '</form>'; 
 		SiteTemplate::closeDatabase();
 	}
+	
 	
 	public function editCourseDropdown()
 	{
@@ -538,6 +526,7 @@ class SiteTemplate
 		SiteTemplate::closeDatabase();
 	}
 	
+	
 	public function registerCourse()
 	{
 		$number=$_POST['courseNumber'];
@@ -552,6 +541,7 @@ class SiteTemplate
 		
 	}
 	
+	//Function used to get drop student courses dropdown menu
 	public function dropStudentCourses($db)
 	{
 		$studentID = $_SESSION['student'];
@@ -585,7 +575,7 @@ class SiteTemplate
 		echo "</div>";
 	}
 	
-	
+	//Function used to delete courses and show the delete course dropdown
 	public function deleteCourseDropdown()
 	{
 		$db = SiteTemplate::connectDatabase();
@@ -615,7 +605,7 @@ class SiteTemplate
 		SiteTemplate::closeDatabase();
 	}
 	
-	
+	//Function used to show grade/course dropdown menu
 	public function gradeCourseDropdown($studID, $title)
 	{
 		$db = SiteTemplate::connectDatabase();
@@ -623,7 +613,6 @@ class SiteTemplate
 		$sql = "SELECT * FROM (enrolled_courses as e JOIN courses as c ON e.courses_id=c.courses_id) WHERE e.students_id=$studID";
 		$result = mysqli_query($db,$sql);
 
-		//$crs = mysqli_fetch_array($result);
 		while($course = mysqli_fetch_assoc($result))
 		{
 			$courses[]=$course;
@@ -639,16 +628,10 @@ class SiteTemplate
 		}
 		echo "</select>";
 		
-
-
-		//echo '<input type="submit" value="Select" style="width: 10%;"/>';
-		//echo '</form>';
-		
-		//echo '</td></tr>';
 		SiteTemplate::closeDatabase();
 	}
 	
-
+	//Used to display all students via HTML table
 	public function displayAllStudents($key)
 	{
 		$db=SiteTemplate::connectDatabase();
@@ -676,6 +659,7 @@ class SiteTemplate
 		SiteTemplate::closeDatabase();
 	}
 	
+	//Function used to show drop student dropdown menu
 	public function dropStudent($db)
 	{
 	    $studentID = $_SESSION['student'];
@@ -693,7 +677,8 @@ class SiteTemplate
 		echo "<select name='students' id='students'>";
 		foreach ($students as $student)
 		{
-			print "<option value='" . $student['students_id'] . "'>" . $student['students_first_name'] . " " . $student['students_middle_initial'] . " " . $student['students_last_name'] . "</option>";
+			if(!($student['students_id'] == $studentID))
+				print "<option value='" . $student['students_id'] . "'>" . $student['students_first_name'] . " " . $student['students_middle_initial'] . " " . $student['students_last_name'] . "</option>";
 			
 		}
 		echo "</select>";
@@ -705,7 +690,7 @@ class SiteTemplate
 		echo "</div>";
 	}
 	
-	
+	//Used to show students for setgrade php page
 	public function dropdownStudent($db, $key)
 	{ 
 		$db = SiteTemplate::connectDatabase();
@@ -735,7 +720,7 @@ class SiteTemplate
 		SiteTemplate::closeDatabase();
 	}
 	
-	
+	//Used to get image
 	public function getUserImage()
 	{
 		require 'database.php';

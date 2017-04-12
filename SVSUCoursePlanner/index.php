@@ -10,6 +10,9 @@
 	if(isset($_GET['logout']))
 		$_SESSION['message'] = "You have been logged out";
 	
+	if(isset($_GET['messageSent']))
+		$_SESSION['message'] = "Your request for account access has been sent";
+	
 	//If login button set, process login, else, see if user is trying to register
 	if(!isset($_POST['login_btn']))
 	{
