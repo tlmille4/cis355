@@ -1,4 +1,12 @@
 <?php 
+/**************************************************************************
+*filename: classInfo.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and displays
+*		      a class student list for the designate class by calling a 
+*             SiteTemplate.php function
+**************************************************************************/  
+
 session_start(); //required for every PHP file
 include 'siteTemplate.php';
 //if userid is not set, call login function

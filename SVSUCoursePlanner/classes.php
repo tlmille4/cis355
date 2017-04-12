@@ -1,4 +1,11 @@
 <?php 
+/**************************************************************************
+*filename: classes.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and displays
+*		      all users in system by calling PHP function located in
+*             SiteTemplate.php
+**************************************************************************/   
 	session_start(); //required for every PHP file
 	
 	//Template file that holds functions and DB access functions

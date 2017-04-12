@@ -1,4 +1,11 @@
 <?php	
+/**************************************************************************
+*filename: applyGrade.php
+*author:   Tyler Miller
+*description: This PHP enables session control and processes grade form
+*			   data by adding the grade to the selected students 
+*              enrolled_courses_final_grade
+**************************************************************************/  
 session_start(); //required for every PHP file
 include 'siteTemplate.php';
 

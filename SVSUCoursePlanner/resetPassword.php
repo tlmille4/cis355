@@ -1,5 +1,10 @@
 <?php
-
+/*******************************************************************
+*filename: resetPassword.php
+*author:   Tyler Miller
+*description: This PHP enables session control and allows user to
+*			  reset his/her password
+*******************************************************************/
 session_start();
 require 'siteTemplate.php';
 

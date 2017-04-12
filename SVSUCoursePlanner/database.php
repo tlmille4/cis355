@@ -1,4 +1,9 @@
 <?php
+/**************************************************************************
+*filename: database.php
+*author:   Tyler Miller
+*description: This PHP file contains database connection functions
+**************************************************************************/  
 class Database 
 {
 	private static $dbName = 'tlmille4' ; 

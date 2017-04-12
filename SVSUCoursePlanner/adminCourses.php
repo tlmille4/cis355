@@ -1,4 +1,11 @@
-<?php 
+<?php
+/*******************************************************************
+*filename: adminCourses.php
+*author:   Tyler Miller
+*description: This PHP enables session control and displays all 
+*             courses in system by calling showAllCourses function
+*			  from SiteTemplate.php file
+*******************************************************************/ 
 	session_start(); //required for every PHP file
 	
 	//Template file that holds functions and DB access functions

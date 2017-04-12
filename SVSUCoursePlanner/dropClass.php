@@ -1,4 +1,10 @@
 <?php 
+/**************************************************************************
+*filename: dropClass.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and allow a
+*		      users to drop a class for which they are currently enrolled
+**************************************************************************/  
 session_start(); //required for every PHP file
 //if userid is not set, call login function
 

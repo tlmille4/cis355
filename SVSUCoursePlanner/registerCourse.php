@@ -1,4 +1,11 @@
 <?php 
+/*******************************************************************
+*filename: registerCourse.php
+*author:   Tyler Miller
+*description: This PHP enables session control and allows the user
+*		      to register for a selected class and store that record
+*			  in the enrolled_courses table in the DB
+*******************************************************************/
 	session_start(); //required for every PHP file
 
 	//Template file that holds functions and DB access functions

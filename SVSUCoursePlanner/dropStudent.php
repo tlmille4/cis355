@@ -1,4 +1,11 @@
 <?php 
+/**************************************************************************
+*filename: dropStudent.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and allows an 
+*		      admin user to drop/delete a selected student from the DB
+**************************************************************************/  
+
 session_start(); //required for every PHP file
 //if userid is not set, call login function
 

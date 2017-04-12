@@ -1,4 +1,10 @@
 <?php 
+/**************************************************************************
+*filename: viewOtherStudent.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and allows a
+*		      user to view another users profile via GET id 
+**************************************************************************/  
 	session_start(); //required for every PHP file
 	//if userid is not set, call login function
 	if(!isset($_SESSION['username']))

@@ -1,4 +1,11 @@
 <?php 
+/**************************************************************************
+*filename: editProfile.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and allows a
+*		      user to edit his/her profile info and updating it in the DB
+**************************************************************************/  
+
 session_start(); //required for every PHP file
 //if userid is not set, call login function
 

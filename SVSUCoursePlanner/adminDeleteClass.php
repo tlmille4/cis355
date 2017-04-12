@@ -1,4 +1,12 @@
-<?php 
+<?php
+/**************************************************************************
+*filename: admindDeleteClass
+*author:   Tyler Miller
+*description: This PHP enables session control echos HTML and displays all 
+*             students in dropdown menu, if one is selected, a
+*			  SQL statement will be executed to delete them from 
+*			  the database.
+**************************************************************************/  
 	session_start(); //required for every PHP file
 	//if userid is not set, call login function
 	

@@ -1,4 +1,12 @@
 <?php
+/**************************************************************************
+*filename: fileUpload.php
+*author:   Tyler Miller
+*description: This PHP file is called to upload a selected file to a 
+*			  students image field in the database. It will change their 
+*             current image to the new image
+**************************************************************************/  
+
 	session_start();
 	require 'database.php';
 	require 'siteTemplate.php';

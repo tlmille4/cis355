@@ -1,4 +1,11 @@
 <?php
+/*******************************************************************
+*filename: SiteTemplate.php
+*author:   Tyler Miller
+*description: PHP file that has many PHP functions/SQL insert,
+*			  delete, update, select statements used in app
+*******************************************************************/
+
 class SiteTemplate 
 {	
 	//Open a connection to the CSIS database

@@ -1,4 +1,11 @@
 <?php 
+/**************************************************************************
+*filename: home.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and is the home
+*		      page that displays various user information and image
+**************************************************************************/  
+
 	session_start(); //required for every PHP file
 
 	//if userid is not set, call login function

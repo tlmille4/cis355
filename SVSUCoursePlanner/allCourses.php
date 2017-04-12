@@ -1,4 +1,12 @@
 <?php 
+/**************************************************************************
+*filename: allCourses.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and displays all 
+*             courses in the system.
+*			  This page is also used to retrieve JSON information with key
+*			  variable id=all for all courses or the course number
+**************************************************************************/  
 	session_start(); //required for every PHP file
 	
 	//Template file that holds functions and DB access functions

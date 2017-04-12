@@ -1,4 +1,12 @@
 <?php 
+/**************************************************************************
+*filename: allStudents.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and displays all 
+*             students in system.
+*			  This page is also used to retrieve JSON information with key
+*			  variable id=all for all students or the student number
+**************************************************************************/  
 	session_start(); //required for every PHP file
 	
 	//PHP Template file with functions and DB connections

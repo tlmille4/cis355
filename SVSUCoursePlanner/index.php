@@ -1,4 +1,12 @@
 <?php 
+/**************************************************************************
+*filename: index.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and displays
+*		      a login form for user to login, or an email form to fill
+*			  out to request to become a new user
+**************************************************************************/  
+
 	session_start(); //required for every PHP file
 	
 	//Include php template file with functions and DB calls

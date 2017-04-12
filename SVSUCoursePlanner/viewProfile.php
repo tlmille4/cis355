@@ -1,4 +1,11 @@
 <?php 
+/**************************************************************************
+*filename: viewProfile.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML and allows a
+*		      user to view another users profile via GET id 
+**************************************************************************/  
+
 	session_start(); //required for every PHP file
 	
 	//Require template files for database and function executions

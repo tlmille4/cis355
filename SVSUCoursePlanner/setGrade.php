@@ -1,10 +1,20 @@
 <?php 
+/*******************************************************************
+*filename: setGrade.php
+*author:   Tyler Miller
+*description: This PHP enables session control, echos HTML, and 
+*			  allows admin user to set grade for students
+*******************************************************************/
 	session_start(); //required for every PHP file
 	//if userid is not set, call login function
-	
+	if($_SESSION['admin'] == 0)
+	{
+		$_SESSION['message']= "YOU DO NOT HAVE ACCESS TO THIS PAGE!<br/>";
+		header('Location: index.php'); 
+		exit();
+	}
 	if(!isset($_SESSION['username']))
 	{
-		echo "YOU MUST BE LOGGED IN TO SEE THIS PAGE";
 		$_SESSION['message']= "You must be logged in to continue<br/>";
 		header('Location: index.php'); 
 		exit();
