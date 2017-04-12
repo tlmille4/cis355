@@ -29,7 +29,7 @@
 					
 		while($student = mysqli_fetch_assoc($result))
 		{
-			array_push($arr, $student['students_last_name'] . ", " . $student['students_first_name'] . " " . $student['students_major']);
+			array_push($arr, $student['students_last_name'] . ", " . $student['students_first_name']);
 		}
 		SiteTemplate::closeDatabase();
 		echo '{"users":' . json_encode($arr) . "}";

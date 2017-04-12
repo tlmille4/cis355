@@ -12,6 +12,31 @@
 		header('Location: index.php'); 
 		exit();
 	}
+	
+	//If GET id variable is set, get JSON object and echo to screen
+	if (isset($_GET['id']))
+	{
+		$db = SiteTemplate::connectDatabase();
+		$getKey = $_GET['id'];
+		
+		if ($getKey == "all")
+			$sql = "SELECT * FROM courses";
+		else
+			$sql = "SELECT * FROM courses WHERE courses_id =$getKey";
+		
+		$arr = array();
+		$result=mysqli_query($db,$sql);
+					
+		while($course = mysqli_fetch_assoc($result))
+		{
+			array_push($arr, $course['courses_prefix'] . $course['courses_number'] . " " . $course['courses_name']);
+		}
+		SiteTemplate::closeDatabase();
+		echo '{"users":' . json_encode($arr) . "}";
+		exit();	
+	}
+	
+	
 ?>
 
 <!DOCTYPE HTML>
